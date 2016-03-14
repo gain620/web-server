@@ -9,7 +9,7 @@ var PORT = 3000;
 // /about
 // About Us
 app.get('/about', function (req, res) {
-	res.send('About us: ');
+	res.send('About us!!! ');
 });
 
 app.use(express.static(__dirname+'/public'));
