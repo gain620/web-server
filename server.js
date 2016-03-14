@@ -2,18 +2,26 @@ var express = require('express');
 var app = express();
 var PORT = 3000;
 
-// app.get('/', function (req, res) {
-// 	res.send('Hello Express!');
-// });
+var middleware = {
+	requireAuthentication: function(req, res, next) {
+		console.log('Private route hit!');
+		next();
+	},
+	logger: function(req, res, next) {
+		console.log('Request: ' + new Date().toString() + req.method + ' ' + req.originalURL);
+	}
+};
 
-// /about
+app.use(middleware.logger);
+
+// /about middleware.requireAuthentication,
 // About Us
-app.get('/about', function (req, res) {
+app.get('/about',  function(req, res) {
 	res.send('About us!!! ');
 });
 
-app.use(express.static(__dirname+'/public'));
+app.use(express.static(__dirname + '/public'));
 
-app.listen(PORT, function () {
-	console.log('Server started on port :'+PORT);
+app.listen(PORT, function() {
+	console.log('Server started on port :' + PORT);
 });
